@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.capstone.invoicemanager.connection.CrudApp
 import com.capstone.invoicemanager.connection.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
@@ -15,8 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
-import retrofit2.Call
-import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
@@ -25,6 +25,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
 
         retrofit = RetrofitClient.create()
         val crud = retrofit.create(CrudApp::class.java)

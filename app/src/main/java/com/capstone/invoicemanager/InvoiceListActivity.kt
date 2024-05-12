@@ -2,11 +2,9 @@ package com.capstone.invoicemanager
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.enableEdgeToEdge
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.invoicemanager.Adapters.InvoiceAdapter
@@ -25,6 +23,7 @@ class InvoiceListActivity : AppCompatActivity() {
     val mainScope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_invoice_list)
         retrofit = RetrofitClient.create()
@@ -34,6 +33,13 @@ class InvoiceListActivity : AppCompatActivity() {
         val userId = getSharedPreferences("user_data", MODE_PRIVATE).getInt("user_id", -1)
         Log.i("@invoice", "u Id : $userId ")
         fetchInvoices(crud, userId)
+
+        //setting the toolbar
+        val toolbar = findViewById<Toolbar>(R.id.custom_toolbar)
+        val titleTextView: TextView = findViewById<TextView>(R.id.titlebar)
+        toolbar.title = ""
+        titleTextView.text = "Dashboard"
+
 
     }
     private fun fetchInvoices(crud: CrudApp, userId: Int) {

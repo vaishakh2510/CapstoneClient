@@ -6,21 +6,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".InvoiceListActivity">
+
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/custom_toolbar" />
+    <View
+        android:id="@+id/blackLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/custom_toolbar" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/invoiceList_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <View
-        android:id="@+id/bottom_line"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorBlack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/invoiceList_recyclerView"
-         />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/custom_toolbar" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/employeeList_fab"
