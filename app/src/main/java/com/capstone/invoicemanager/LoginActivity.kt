@@ -1,20 +1,70 @@
 package com.capstone.invoicemanager
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.capstone.invoicemanager.connection.CrudApp
+import com.capstone.invoicemanager.connection.RetrofitClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.Call
+import retrofit2.Response
+
 
 class LoginActivity : AppCompatActivity() {
+    private lateinit var retrofit: Retrofit
+    val mainScope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        retrofit = RetrofitClient.create()
+        val crud = retrofit.create(CrudApp::class.java)
+
+         findViewById<Button>(R.id.loginButton).setOnClickListener{
+             mainScope.launch {
+
+                 val userName = findViewById<EditText>(R.id.etUsername).text.toString()
+                 val userPassword = findViewById<EditText>(R.id.etPassword).text.toString()
+
+                 Log.i("@login", "u Id : $userName , psd : $userPassword")
+
+                 val response = crud.getUser(userName, userPassword)
+
+                 if (response.isSuccessful) {
+                     val userResponse = response.body()
+                     Log.i("@login", "u Id : $userResponse ")
+                     if (userResponse != null) {
+
+                         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+                         val editor = sharedPref.edit()
+                         val userId = response.body() ?: -1 // Handle potential null response
+                         editor.putInt("user_id", userId)
+                         editor.apply()
+                         Toast.makeText(this@LoginActivity, "Login successful! User ID: $userResponse", Toast.LENGTH_SHORT).show()
+                         val intent = Intent(this@LoginActivity, InvoiceListActivity::class.java)
+                         startActivity(intent)
+
+                     } else {
+                         Toast.makeText(this@LoginActivity, "Login failed (empty response)", Toast.LENGTH_SHORT).show()
+                     }
+                 } else {
+                     // Handle login failure
+                     val error = response.errorBody()?.string() ?: "Unknown error"
+                     Toast.makeText(this@LoginActivity, "Login failed: $error", Toast.LENGTH_SHORT).show()
+                 }
+
+                     }
+
+             }
+
         }
     }
-}
