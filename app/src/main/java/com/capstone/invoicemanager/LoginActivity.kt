@@ -30,42 +30,64 @@ class LoginActivity : AppCompatActivity() {
         retrofit = RetrofitClient.create()
         val crud = retrofit.create(CrudApp::class.java)
 
-         findViewById<Button>(R.id.loginButton).setOnClickListener{
-             mainScope.launch {
+        findViewById<Button>(R.id.loginButton).setOnClickListener {
+            mainScope.launch {
 
-                 val userName = findViewById<EditText>(R.id.etUsername).text.toString()
-                 val userPassword = findViewById<EditText>(R.id.etPassword).text.toString()
+                val userName = findViewById<EditText>(R.id.etUsername).text.toString()
+                val userPassword = findViewById<EditText>(R.id.etPassword).text.toString()
 
-                 Log.i("@login", "u Id : $userName , psd : $userPassword")
+                Log.i("@login", "u Id : $userName , psd : $userPassword")
+                try {
 
-                 val response = crud.getUser(userName, userPassword)
+                    val response = crud.getUser(userName, userPassword)
 
-                 if (response.isSuccessful) {
-                     val userResponse = response.body()
-                     Log.i("@login", "u Id : $userResponse ")
-                     if (userResponse != null) {
+                    if (response.isSuccessful) {
+                        val userResponse = response.body()
+                        Log.i("@login", "u Id : $userResponse ")
+                        if (userResponse != null) {
 
-                         val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
-                         val editor = sharedPref.edit()
-                         val userId = response.body() ?: -1 // Handle potential null response
-                         editor.putInt("user_id", userId)
-                         editor.apply()
-                         Toast.makeText(this@LoginActivity, "Login successful! User ID: $userResponse", Toast.LENGTH_SHORT).show()
-                         val intent = Intent(this@LoginActivity, InvoiceListActivity::class.java)
-                         startActivity(intent)
+                            val sharedPref = getSharedPreferences("user_data", Context.MODE_PRIVATE)
+                            val editor = sharedPref.edit()
+                            val userId = response.body() ?: -1 // Handle potential null response
+                            editor.putInt("user_id", userId)
+                            editor.apply()
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Login successful! User ID: $userResponse",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent = Intent(this@LoginActivity, InvoiceListActivity::class.java)
+                            startActivity(intent)
 
-                     } else {
-                         Toast.makeText(this@LoginActivity, "Login failed (empty response)", Toast.LENGTH_SHORT).show()
-                     }
-                 } else {
-                     // Handle login failure
-                     val error = response.errorBody()?.string() ?: "Unknown error"
-                     Toast.makeText(this@LoginActivity, "Login failed: $error", Toast.LENGTH_SHORT).show()
-                 }
+                        } else {
+                            Toast.makeText(
+                                this@LoginActivity,
+                                "Login failed (empty response)",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        // Handle login failure
+                        val error = response.errorBody()?.string() ?: "Unknown error"
+                        Toast.makeText(
+                            this@LoginActivity,
+                            "Login failed: $error",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
 
-                     }
+                } catch (e: Exception) {
+                    // Handle network connection issues
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "Please check your connection and try again.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    Log.e("LoginActivity", "Network error during login:", e)
+                }
 
-             }
+            }
 
         }
     }
+}

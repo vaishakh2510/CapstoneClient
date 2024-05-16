@@ -16,19 +16,18 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".EditInvoiceActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddInvoiceActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".SingleInvoiceActivity"
             android:exported="true"
-            android:theme="@style/Theme.InvoiceManager">
-
-        </activity>
+            android:theme="@style/Theme.InvoiceManager"></activity>
         <activity
             android:name=".InvoiceListActivity"
-            android:exported="false" />
+            android:exported="true"></activity>
         <activity
             android:name=".SignupActivity"
             android:exported="true">

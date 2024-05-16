@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddInvoiceActivity">
+    tools:context=".EditInvoiceActivity">
     <include layout="@layout/toolbar_layout"
         android:id="@+id/custom_toolbar" />
     <View
@@ -16,7 +16,7 @@
         app:layout_constraintTop_toBottomOf="@id/custom_toolbar" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
@@ -40,10 +40,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -64,11 +64,11 @@
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/textView21"
         android:background="@drawable/edittext_boxstyle"/>
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -88,29 +88,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14">
-a
-    <TextView
-        android:id="@+id/tv_pick_date"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="9dp"
-        android:text="Select"
-        android:textSize="18sp" />
-    <View
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        app:layout_constraintTop_toBottomOf="@+id/textView23">
+        a
+        <TextView
+            android:id="@+id/tv_pick_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="9dp"
+            android:text="Select"
+            android:textSize="18sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-    <ImageView
-        android:id="@+id/iv_calendar_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginRight="12dp"
-        android:src="@drawable/baseline_calendar_today_24" />
+        <ImageView
+            android:id="@+id/iv_calendar_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="12dp"
+            android:src="@drawable/baseline_calendar_today_24" />
 
-</LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView16"
@@ -122,6 +122,7 @@ a
         app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
     <EditText
         android:id="@+id/editTextText3"
         android:layout_width="350dp"
@@ -143,9 +144,10 @@ a
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="36dp"
-        android:text="CREATE"
+        android:text="EDIT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.268" app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.268"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

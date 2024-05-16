@@ -1,5 +1,7 @@
 package com.capstone.invoicemanager
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.capstone.invoicemanager.Adapters.InvoiceAdapter
 import com.capstone.invoicemanager.connection.CrudApp
 import com.capstone.invoicemanager.connection.RetrofitClient
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -40,14 +43,21 @@ class InvoiceListActivity : AppCompatActivity() {
         toolbar.title = ""
         titleTextView.text = "Dashboard"
 
+        findViewById<FloatingActionButton>(R.id.floatingActionButton).setOnClickListener {
+
+            val intent = Intent(this, AddInvoiceActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
-    private fun fetchInvoices(crud: CrudApp, userId: Int) {
+    private fun fetchInvoices( crud: CrudApp, userId: Int) {
         mainScope.launch {
             val response = crud.getInvoice(userId)
             if (response.isSuccessful) {
                 val invoices = response.body() ?: emptyList()
-                invoiceAdapter = InvoiceAdapter(invoices)
+                Log.i("@Listof","list is : $invoices")
+                invoiceAdapter = InvoiceAdapter(this@InvoiceListActivity,invoices)
                 recyclerView.adapter = invoiceAdapter
             } else {
                 Log.e("InvoiceListActivity", "Error fetching invoices: ${response.code()}")

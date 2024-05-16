@@ -16,7 +16,7 @@ import retrofit2.http.Path
 interface CrudApp {
     @GET("/user")
     suspend fun getUser(
-        @Query("username") username: String,
+        @Query("userName") username: String,
         @Query("password") password: String
     ):Response<Int>
 

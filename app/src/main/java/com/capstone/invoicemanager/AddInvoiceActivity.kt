@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
@@ -17,6 +18,12 @@ class AddInvoiceActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_invoice)
+
+        //setting the toolbar
+        val toolbar = findViewById<Toolbar>(R.id.custom_toolbar)
+        val titleTextView: TextView = findViewById(R.id.titlebar)
+        toolbar.title = ""
+        titleTextView.text = "New Invoice"
 
         val linearLayout = findViewById<LinearLayout>(R.id.linearLayout)
         val tvSingleDate = findViewById<TextView>(R.id.tv_pick_date) // Assuming your TextView ID is 'tv_pick_date'
@@ -35,6 +42,10 @@ class AddInvoiceActivity : AppCompatActivity() {
 
     }
     private fun showDatePickerDialog() {
+
+        val maxDate = Calendar.getInstance().timeInMillis  // Get current time in milliseconds
+
+
         val datePickerDialog = DatePickerDialog(this,
             { view, year, monthOfYear, dayOfMonth ->
                 val selectedDate = "$year-${monthOfYear + 1}-$dayOfMonth"
@@ -44,8 +55,8 @@ class AddInvoiceActivity : AppCompatActivity() {
             Calendar.getInstance().get(Calendar.MONTH),
             Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         )
+        datePickerDialog.datePicker.maxDate = maxDate
         datePickerDialog.show()
-//        datePickerDialog.setCancelable(false)
     }
 
     fun updateDateView(selectedDate: String) {

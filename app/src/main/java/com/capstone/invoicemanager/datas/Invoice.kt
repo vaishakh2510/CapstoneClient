@@ -8,7 +8,7 @@ data class Invoice (
     var userId :Int,
     var clientName: String,
     var amount :Int,
-    var date: Date,
+    var invoiceDate: Date,
     var description: String,
 )
 

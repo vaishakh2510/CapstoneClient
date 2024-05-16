@@ -1,5 +1,6 @@
 package com.capstone.invoicemanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -35,6 +36,8 @@ class SingleInvoiceActivity : AppCompatActivity() {
         builder.setPositiveButton("Yes") { dialog, which ->
             // Handle positive button click (delete invoice logic here)
             Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, InvoiceListActivity::class.java)
+            startActivity(intent)
 
 
         }
