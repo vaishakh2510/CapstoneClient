@@ -32,7 +32,6 @@ class AddInvoiceActivity : AppCompatActivity() {
 
     private lateinit var retrofit: Retrofit
     val mainScope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main)
-
     private lateinit var tvSingleDate: TextView
     private var selectedDate: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,6 +65,9 @@ class AddInvoiceActivity : AppCompatActivity() {
             if (clientName.isEmpty() || amount.isEmpty()|| invoiceDate.equals("Select")) {
                 Toast.makeText(this@AddInvoiceActivity, "Please fill in all fields!", Toast.LENGTH_SHORT).show()
             }
+            else if (clientName.length < 5) {
+                Toast.makeText(this@AddInvoiceActivity, "Client name must be at least 5 characters!", Toast.LENGTH_SHORT).show()
+            }
             else if(amount.toDouble()<3000) {
                 Toast.makeText(this@AddInvoiceActivity, "Amount must be greater than 3000", Toast.LENGTH_SHORT).show()
 
@@ -77,8 +79,7 @@ class AddInvoiceActivity : AppCompatActivity() {
                 val parsedDate = dateFormat.parse(invoiceDate)
                 val formattedDate = dateFormat.format(parsedDate)
 
-
-            val invoice = Invoice (
+                val invoice = Invoice (
                 userId =  getSharedPreferences("user_data", MODE_PRIVATE).getInt("user_id",-1),
                 clientName = clientName,
                 amount = amount.toDouble(),

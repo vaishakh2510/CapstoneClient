@@ -96,7 +96,11 @@ class SignupActivity : AppCompatActivity() {
                 if (!isValidPassword(password.text.toString())) {
                     return@launch // Exit the coroutine if password is weak
                 }
-
+                if (!isValidEmail(email.text.toString())) {
+                    // Handle invalid email format (e.g., show error message)
+                    Toast.makeText(this@SignupActivity, "Invalid email format!", Toast.LENGTH_SHORT).show()
+                    return@launch // Exit if email is invalid
+                }
                 // All validations passed, doing signup logic
                 val user = User(userName.text.toString(),email.text.toString(),password.text.toString())
                 val response = crud.createUser(user)
@@ -136,7 +140,11 @@ class SignupActivity : AppCompatActivity() {
 
         }
 
-
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
+        val pattern = Regex(emailPattern)
+        return pattern.matches(email)
+    }
 
 
 

@@ -36,7 +36,8 @@ interface CrudApp {
     @POST("/invoice")
     suspend fun createInvoice(@Body invoice : Invoice):Response<Void>
 
-
+    @PUT("/invoice/{id}")
+    suspend fun editInvoice(@Path("id") id: Int ,@Body invoice: Invoice): Response<Void>
 
 
 }
