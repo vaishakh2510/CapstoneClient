@@ -40,7 +40,7 @@ class InvoiceAdapter(private val context: Context,private val invoices: List<Inv
         holder.clientNameTextView.text = currentItem.clientName
         val textamnt = "INR.${currentItem.amount}"
         holder.amountTextView.text = textamnt// Assuming amount is an integer
-        holder.dateTextView.text = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(currentItem.invoiceDate)
+        holder.dateTextView.text = currentItem.invoiceDate
         // Handle entire item click (excluding edit image view)
         holder.itemView.setOnClickListener {
             val inid = currentItem.invoiceId
@@ -49,9 +49,6 @@ class InvoiceAdapter(private val context: Context,private val invoices: List<Inv
             val invoiceId = inid
             editor.putInt("invoice_id", invoiceId)
             editor.apply()
-            //val toastMessage = "You clicked position: $position in id :$inid"
-            //val toast = Toast.makeText(holder.itemView.context, toastMessage, Toast.LENGTH_SHORT)
-            //toast.show()
             val intent = Intent(context, SingleInvoiceActivity::class.java)
             ContextCompat.startActivity(context, intent ,null)
         }

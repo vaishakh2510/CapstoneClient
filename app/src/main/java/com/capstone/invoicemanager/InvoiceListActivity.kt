@@ -33,7 +33,7 @@ class InvoiceListActivity : AppCompatActivity() {
         val crud = retrofit.create(CrudApp::class.java)
         recyclerView = findViewById<RecyclerView>(R.id.invoiceList_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val userId = getSharedPreferences("user_data", MODE_PRIVATE).getInt("user_id", -1)
+        val userId = getSharedPreferences("user_data", MODE_PRIVATE).getInt("user_id",-1)
         Log.i("@invoice", "u Id : $userId ")
         fetchInvoices(crud, userId)
 

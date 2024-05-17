@@ -8,6 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -25,5 +26,17 @@ interface CrudApp {
 
     @GET("/invoice/{id}")
     suspend fun getInvoice(@Path("id") id: Int):Response<List<Invoice>>
+
+    @GET("/singleinvoice/{id}")
+    suspend fun getSingleInvoice(@Path("id") id: Int):Response<Invoice>
+
+    @DELETE("/invoice/{id}")
+    suspend fun deleteInvoice(@Path("id") id: Int):Response<Int>
+
+    @POST("/invoice")
+    suspend fun createInvoice(@Body invoice : Invoice):Response<Void>
+
+
+
 
 }

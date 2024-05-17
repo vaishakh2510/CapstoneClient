@@ -119,8 +119,8 @@ class SignupActivity : AppCompatActivity() {
                     val errorBody = response.errorBody()?.string() ?: "0"
                     val ercode = Integer.parseInt(errorBody)
                     when(ercode){
-                        2 -> Toast.makeText(this@SignupActivity, "Username already exists!", Toast.LENGTH_SHORT).show()
-                        3 -> Toast.makeText(this@SignupActivity, "Email already exists!", Toast.LENGTH_SHORT).show()
+                        3 -> Toast.makeText(this@SignupActivity, "Username already exists!", Toast.LENGTH_SHORT).show()
+                        2 -> Toast.makeText(this@SignupActivity, "Email already exists!", Toast.LENGTH_SHORT).show()
                         else -> Log.i("@usercreation","unexpected error code")
                     }
                  }

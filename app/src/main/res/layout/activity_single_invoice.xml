@@ -28,25 +28,24 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="325dp"
-        android:layout_height="294dp"
-        android:layout_marginStart="50dp"
+        android:layout_height="wrap_content"  android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/tv_scrollable_text"
-            android:layout_width="310dp"
-            android:layout_height="wrap_content"
-            android:text="This is a very long text that overflows the single line and should become scrollable when there's not enough space to display it all."
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+        app:layout_constraintVertical_bias="0.0"
+        android:fillViewport="false">  <TextView
+        android:id="@+id/tv_scrollable_text"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     </androidx.core.widget.NestedScrollView>
+
 
     <TextView
         android:id="@+id/tv_clientName"
@@ -92,10 +91,10 @@
 
     <TextView
         android:id="@+id/tvSingle_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="16dp"
         android:layout_marginTop="32dp"
-        android:text="TextView"
+        android:text="2024-10-09"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toEndOf="@+id/textView15"
