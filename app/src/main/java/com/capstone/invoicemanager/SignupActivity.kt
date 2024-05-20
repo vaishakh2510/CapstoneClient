@@ -25,6 +25,11 @@ import kotlin.math.log
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var retrofit: Retrofit
+    private lateinit var crudApp: CrudApp
+
+    fun injectCrudApp(crudApp: CrudApp) {
+        this.crudApp = crudApp
+    }
 
     val mainScope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +38,7 @@ class SignupActivity : AppCompatActivity() {
 
         retrofit = RetrofitClient.create()
         val crud = retrofit.create(CrudApp::class.java)
+        crudApp = retrofit.create(CrudApp::class.java)
 
         //creating underline
         val tvlogin = findViewById<TextView>(R.id.tvLoginhere)
@@ -103,7 +109,7 @@ class SignupActivity : AppCompatActivity() {
                 }
                 // All validations passed, doing signup logic
                 val user = User(userName.text.toString(),email.text.toString(),password.text.toString())
-                val response = crud.createUser(user)
+                val response = crudApp.createUser(user)
 
                 if (response.isSuccessful) {
                     val statusCode = response.body() ?: -1
@@ -140,7 +146,7 @@ class SignupActivity : AppCompatActivity() {
 
         }
 
-    private fun isValidEmail(email: String): Boolean {
+    fun isValidEmail(email: String): Boolean {
         val emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"
         val pattern = Regex(emailPattern)
         return pattern.matches(email)

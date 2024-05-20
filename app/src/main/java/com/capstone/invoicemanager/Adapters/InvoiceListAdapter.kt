@@ -2,6 +2,7 @@ package com.capstone.invoicemanager.Adapters
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,3 +72,16 @@ class InvoiceAdapter(private val context: Context,private val invoices: List<Inv
 
     override fun getItemCount() = invoices.size
 }
+
+class TransactionItemDecoration(private val spaceHeight: Int) : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        super.getItemOffsets(outRect, view, parent, state)
+
+        // Set spacing for the bottom of each item except the last one
+        if (parent.getChildAdapterPosition(view) == parent.adapter?.itemCount) {
+            outRect.bottom = spaceHeight
+        }
+    }
+}
+
+

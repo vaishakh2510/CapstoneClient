@@ -22,6 +22,13 @@ import retrofit2.Retrofit
 class LoginActivity : AppCompatActivity() {
     private lateinit var retrofit: Retrofit
     val mainScope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main)
+    private lateinit var crudApp: CrudApp
+
+    fun injectCrudApp(crudApp: CrudApp) {
+        this.crudApp = crudApp
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -29,6 +36,8 @@ class LoginActivity : AppCompatActivity() {
 
         retrofit = RetrofitClient.create()
         val crud = retrofit.create(CrudApp::class.java)
+        crudApp = retrofit.create(CrudApp::class.java)
+
 
         findViewById<Button>(R.id.loginButton).setOnClickListener {
             mainScope.launch {
@@ -39,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.i("@login", "u Id : $userName , psd : $userPassword")
                 try {
 
-                    val response = crud.getUser(userName, userPassword)
+                    val response = crudApp.getUser(userName, userPassword)
 
                     if (response.isSuccessful) {
                         val userResponse = response.body()
@@ -71,7 +80,7 @@ class LoginActivity : AppCompatActivity() {
                         val error = response.errorBody()?.string() ?: "Unknown error"
                         Toast.makeText(
                             this@LoginActivity,
-                            "Login failed: $error",
+                            "Please check username and password!",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

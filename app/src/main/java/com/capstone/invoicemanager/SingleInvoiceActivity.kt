@@ -23,6 +23,11 @@ import java.text.SimpleDateFormat
 class SingleInvoiceActivity : AppCompatActivity() {
     val mainScope: CoroutineScope = CoroutineScope(Job() + Dispatchers.Main)
     private lateinit var retrofit: Retrofit
+    private lateinit var crudApp: CrudApp
+
+    fun injectCrudApp(crudApp: CrudApp) {
+        this.crudApp = crudApp
+    }
 
 
 
@@ -44,13 +49,14 @@ class SingleInvoiceActivity : AppCompatActivity() {
         //for connection
         retrofit = RetrofitClient.create()
         val crud = retrofit.create(CrudApp::class.java)
+        crudApp = retrofit.create(CrudApp::class.java)
 
 
 
         val invoiceId = getSharedPreferences("invoice_data", MODE_PRIVATE).getInt("invoice_id", -1)
 
         mainScope.launch {
-            val response = crud.getSingleInvoice(invoiceId)
+            val response = crudApp.getSingleInvoice(invoiceId)
             if (response.isSuccessful) {
                 val invoice: Invoice = response.body() ?: Invoice()
                 Log.i("@SingleInvoice","list is :$invoice")
@@ -94,8 +100,9 @@ class SingleInvoiceActivity : AppCompatActivity() {
             mainScope.launch {
                 retrofit = RetrofitClient.create()
                 val crud = retrofit.create(CrudApp::class.java)
+                crudApp = retrofit.create(CrudApp::class.java)
 
-                val response = crud.deleteInvoice(invoiceId)
+                val response = crudApp.deleteInvoice(invoiceId)
                 if(response.isSuccessful) {
                     Toast.makeText(this@SingleInvoiceActivity, "Deleted", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@SingleInvoiceActivity, InvoiceListActivity::class.java)

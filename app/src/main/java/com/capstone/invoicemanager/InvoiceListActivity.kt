@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.invoicemanager.Adapters.InvoiceAdapter
+import com.capstone.invoicemanager.Adapters.TransactionItemDecoration
 import com.capstone.invoicemanager.connection.CrudApp
 import com.capstone.invoicemanager.connection.RetrofitClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -33,6 +34,9 @@ class InvoiceListActivity : AppCompatActivity() {
         val crud = retrofit.create(CrudApp::class.java)
         recyclerView = findViewById<RecyclerView>(R.id.invoiceList_recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.item_spacing) // Define item spacing dimension
+        val itemDecoration = TransactionItemDecoration(spacingInPixels)
+        recyclerView.addItemDecoration(itemDecoration)
         val userId = getSharedPreferences("user_data", MODE_PRIVATE).getInt("user_id",-1)
         Log.i("@invoice", "u Id : $userId ")
         fetchInvoices(crud, userId)

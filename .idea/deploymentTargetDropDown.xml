@@ -2,7 +2,22 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="All Tests">
+        <State />
+      </entry>
+      <entry key="ListInvoiceActivityTest">
+        <State />
+      </entry>
+      <entry key="SingleInvoiceActivityTest">
+        <State />
+      </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="test1_checkIfAllFieldsEmpty()">
+        <State />
+      </entry>
+      <entry key="testDetailedInvoiceView()">
         <State />
       </entry>
     </value>
